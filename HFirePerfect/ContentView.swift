@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var session: SessionStore
+    
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            if session.session != nil {
+                HomeView()
+            } else {
+                LoginView()
+            }
+        }.onAppear {
+            session.listen()
         }
-        .padding()
     }
 }
 
